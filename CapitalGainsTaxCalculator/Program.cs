@@ -18,6 +18,7 @@ namespace CapitalGainsTaxCalculator
 
             while (true)
             {
+                // Will take a file next
                 Console.WriteLine("Please enter a capital gain transaction (or type 'exit' to finish):");
                 string input = Console.ReadLine();
 

@@ -5,6 +5,7 @@ namespace CapitalGainsTaxCalculator.Services
 {
     public class TaxCalculator
     {
+        // Will get online next 
         private const decimal TaxRate = 0.33m; // 33% capital gains tax rate
 
         public decimal CalculateTax(List<CapitalGain> capitalGains)
