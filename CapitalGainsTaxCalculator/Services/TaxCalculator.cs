@@ -4,30 +4,22 @@ namespace CapitalGainsTaxCalculator.Services
 {
     public class TaxCalculator
     {
-        // Will get online next 
-        private const decimal TaxRate = 0.33m; // 33% capital gains tax rate
-
-        public decimal CalculateTax(List<CapitalGain> capitalGains)
+        public decimal CalculateTax(List<CapitalGain> capitalGains, decimal taxRate)
         {
             decimal totalTax = 0;
 
             foreach (var gain in capitalGains)
             {
-                totalTax += CalculateGainTax(gain);
+                totalTax += CalculateGainTax(gain, taxRate);
             }
 
             return totalTax;
         }
 
-        private decimal CalculateGainTax(CapitalGain gain)
+        private decimal CalculateGainTax(CapitalGain gain, decimal taxRate)
         {
             // Assuming the gain amount is the profit made
-            return gain.Amount * TaxRate;
-        }
-
-        public decimal GetTaxRate()
-        {
-            return TaxRate;
+            return gain.Amount * taxRate;
         }
     }
 }

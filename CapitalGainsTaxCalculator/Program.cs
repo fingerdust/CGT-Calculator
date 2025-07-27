@@ -11,7 +11,7 @@ namespace CapitalGainsTaxCalculator
 {
     class Program
     {
-        static void Main(string[] args)
+        static async System.Threading.Tasks.Task Main(string[] args)
         {
             // Set up dependency injection and configuration
             var host = Host.CreateDefaultBuilder(args)
@@ -27,12 +27,11 @@ namespace CapitalGainsTaxCalculator
             .Build();
 
             var service = host.Services.GetRequiredService<GPTService>();
-            service.UseApi();
-
+            var cgtRateString = await service.GetGgtValue("What is the current capital gains tax rate?");
+            var cgtExemptionString = await service.GetGgtValue("What is the current capital gains exemption?");
+            var currentCgtRate = decimal.Parse(cgtRateString, CultureInfo.InvariantCulture);
 
             Console.WriteLine("Welcome to the Capital Gains Tax Calculator!");
-
-            Console.WriteLine("The current capital gains tax rate: ");
 
             List<CapitalGain> capitalGains = new List<CapitalGain>();
             InputParser inputParser = new InputParser();
@@ -60,7 +59,7 @@ namespace CapitalGainsTaxCalculator
                 }
             }
 
-            decimal totalTaxOwed = taxCalculator.CalculateTax(capitalGains);
+            decimal totalTaxOwed = taxCalculator.CalculateTax(capitalGains, currentCgtRate);
             Console.WriteLine($"Total Capital Gains Tax Owed: {totalTaxOwed.ToString("C", new CultureInfo("en-IE"))}");
         }
     }
