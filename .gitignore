@@ -132,4 +132,5 @@ Desktop.ini
 *.msm
 *.msp
 
-# Windows
+# App Settings
+appsettings.json
